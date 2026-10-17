@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { MapPin } from 'lucide-react';
 
 export default function EventCard({ event }) {
   return (
@@ -11,7 +12,12 @@ export default function EventCard({ event }) {
             className="event-card-img-real"
           />
         ) : (
-          <div className="event-card-img">{event.emoji || '🎉'}</div>
+          <div className="event-card-img">
+            {/* Fallback for events without images */}
+            <span style={{ fontSize: '32px' }}>
+              {event.emoji || '🎉'}
+            </span>
+          </div>
         )}
         {event.soldOut && (
           <div className="sold-out-badge">SOLD OUT</div>
@@ -20,9 +26,15 @@ export default function EventCard({ event }) {
       <div className="event-card-body">
         <div className="event-card-date">{event.date}</div>
         <div className="event-card-title">{event.title}</div>
-        <div className="event-card-loc">📍 {event.location}</div>
+        
+        {/* Replaced the 📍 emoji with a Lucide MapPin icon */}
+        <div className="event-card-loc" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <MapPin size={14} />
+          {event.location}
+        </div>
+        
         <div className="event-card-price">{event.price}</div>
       </div>
     </Link>
   );
-}
+          }
