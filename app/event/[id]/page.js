@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
+import { Calendar, Clock, MapPin } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import ShareButton from '../../../components/ShareButton';
@@ -136,30 +137,31 @@ export default async function EventPage({ params }) {
               {organizer.profile_picture_url ? (
                 <img
                   src={organizer.profile_picture_url}
-                  alt={
-                    organizer.display_name || organizer.username
-                  }
+                  alt={organizer.display_name || organizer.username}
                   className="event-organizer-avatar"
                 />
               ) : (
                 <div className="event-organizer-avatar event-organizer-avatar-fallback">
-                  {(organizer.display_name ||
-                    organizer.username)[0].toUpperCase()}
+                  {(organizer.display_name || organizer.username)[0].toUpperCase()}
                 </div>
               )}
               <span>
                 Organized by{' '}
-                <strong>
-                  {organizer.display_name || organizer.username}
-                </strong>
+                <strong>{organizer.display_name || organizer.username}</strong>
               </span>
             </Link>
           )}
 
           <div className="event-meta">
-            <div>📅 {formattedDate}</div>
-            <div>🕐 {event.event_time || 'Time TBA'}</div>
-            <div>📍 {event.location}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Calendar size={16} /> {formattedDate}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Clock size={16} /> {event.event_time || 'Time TBA'}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <MapPin size={16} /> {event.location}
+            </div>
           </div>
 
           {ended && (
@@ -172,8 +174,7 @@ export default async function EventPage({ params }) {
           <div
             className="event-desc"
             dangerouslySetInnerHTML={{
-              __html:
-                event.description || '<p>Full details coming soon.</p>',
+              __html: event.description || '<p>Full details coming soon.</p>',
             }}
           />
 
@@ -188,4 +189,4 @@ export default async function EventPage({ params }) {
       <Footer />
     </>
   );
-            }
+  }
