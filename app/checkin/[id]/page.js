@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
+import { CheckCircle2, Ticket } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import {
@@ -252,13 +253,23 @@ export default function PublicCheckInPage() {
         {stats && (
           <div className="checkin-stats">
             <div className="checkin-stat">
-              <div className="checkin-stat-label">Checked in</div>
+              <div
+                className="checkin-stat-label"
+                style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+              >
+                <CheckCircle2 size={12} /> Checked in
+              </div>
               <div className="checkin-stat-value">
                 {stats.checkedInTickets} / {stats.totalTickets}
               </div>
             </div>
             <div className="checkin-stat">
-              <div className="checkin-stat-label">Remaining</div>
+              <div
+                className="checkin-stat-label"
+                style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+              >
+                <Ticket size={12} /> Remaining
+              </div>
               <div className="checkin-stat-value">
                 {stats.totalTickets - stats.checkedInTickets}
               </div>
@@ -369,4 +380,4 @@ export default function PublicCheckInPage() {
       <Footer />
     </>
   );
-        }
+}
