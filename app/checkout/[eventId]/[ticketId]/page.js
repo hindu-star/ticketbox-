@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { MapPin } from 'lucide-react';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import { supabase } from '../../../../lib/supabase';
@@ -61,7 +62,6 @@ export default function CheckoutPage() {
 
   const subtotal = ticket ? Number(ticket.price) * quantity : 0;
 
-  // Recalculate discount when subtotal changes (quantity or applied promo)
   const discount = appliedPromo
     ? Math.min(appliedPromo.discount, subtotal)
     : 0;
@@ -108,7 +108,6 @@ export default function CheckoutPage() {
     setPaying(true);
     setError('');
 
-    // Free ticket — skip Paystack
     if (total === 0) {
       try {
         const res = await fetch('/api/paystack/free', {
@@ -135,7 +134,6 @@ export default function CheckoutPage() {
       return;
     }
 
-    // Paid ticket
     try {
       const res = await fetch('/api/paystack/initialize', {
         method: 'POST',
@@ -210,7 +208,12 @@ export default function CheckoutPage() {
 
         <div className="checkout-card">
           <div className="checkout-event-title">{event.title}</div>
-          <div className="checkout-event-meta">📍 {event.location}</div>
+          <div
+            className="checkout-event-meta"
+            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+          >
+            <MapPin size={14} /> {event.location}
+          </div>
         </div>
 
         <div className="checkout-card">
@@ -241,7 +244,6 @@ export default function CheckoutPage() {
           </div>
         </div>
 
-        {/* PROMO CODE */}
         <div className="checkout-card">
           {!appliedPromo ? (
             <>
@@ -354,4 +356,4 @@ export default function CheckoutPage() {
       <Footer />
     </>
   );
-          }
+      }
