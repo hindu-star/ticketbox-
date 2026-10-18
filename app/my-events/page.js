@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { MapPin, Calendar } from 'lucide-react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { supabase } from '../../lib/supabase';
@@ -222,18 +223,44 @@ export default function MyEventsPage() {
                         <span className="ended-badge">Ended</span>
                       )}
                     </div>
-                    <div className="dashboard-row-meta">
-                      📍 {e.location} · 📅{' '}
-                      {e.event_date
-                        ? new Date(e.event_date).toLocaleDateString(
-                            'en-GB',
-                            {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric',
-                            }
-                          )
-                        : 'TBA'}
+                    <div
+                      className="dashboard-row-meta"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        flexWrap: 'wrap',
+                      }}
+                    >
+                      <span
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                        }}
+                      >
+                        <MapPin size={13} /> {e.location}
+                      </span>
+                      <span>·</span>
+                      <span
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                        }}
+                      >
+                        <Calendar size={13} />{' '}
+                        {e.event_date
+                          ? new Date(e.event_date).toLocaleDateString(
+                              'en-GB',
+                              {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric',
+                              }
+                            )
+                          : 'TBA'}
+                      </span>
                     </div>
                     <div className="dashboard-row-stats">
                       <span className="dash-stat">
@@ -302,4 +329,4 @@ export default function MyEventsPage() {
       <Footer />
     </>
   );
-}
+          }
