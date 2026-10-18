@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import { CheckCircle2, Ticket } from 'lucide-react';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import { supabase } from '../../../../lib/supabase';
@@ -32,7 +33,7 @@ export default function CheckInPage() {
   const [setupPin, setSetupPin] = useState('');
   const [setupConfirm, setSetupConfirm] = useState('');
   const [setupSaving, setSetupSaving] = useState(false);
-  
+
   const [showChangePin, setShowChangePin] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -303,7 +304,7 @@ export default function CheckInPage() {
             <button type="submit" disabled={setupSaving}>
               {setupSaving ? 'Saving...' : 'Save new PIN'}
             </button>
-            
+
             {showChangePin && (
               <button
                 type="button"
@@ -369,13 +370,23 @@ export default function CheckInPage() {
         {stats && (
           <div className="checkin-stats">
             <div className="checkin-stat">
-              <div className="checkin-stat-label">Checked in</div>
+              <div
+                className="checkin-stat-label"
+                style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+              >
+                <CheckCircle2 size={12} /> Checked in
+              </div>
               <div className="checkin-stat-value">
                 {stats.checkedInTickets} / {stats.totalTickets}
               </div>
             </div>
             <div className="checkin-stat">
-              <div className="checkin-stat-label">Remaining</div>
+              <div
+                className="checkin-stat-label"
+                style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+              >
+                <Ticket size={12} /> Remaining
+              </div>
               <div className="checkin-stat-value">
                 {stats.totalTickets - stats.checkedInTickets}
               </div>
