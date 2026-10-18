@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Check } from 'lucide-react';
 import InviteUnlocker from './InviteUnlocker';
 
 export default function EventTickets({ eventId, tickets, ended }) {
@@ -53,7 +54,16 @@ export default function EventTickets({ eventId, tickets, ended }) {
                   {perks.length > 0 && (
                     <ul className="ticket-perks">
                       {perks.map((p, idx) => (
-                        <li key={idx}>✓ {p}</li>
+                        <li
+                          key={idx}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                          }}
+                        >
+                          <Check size={14} color="#16a34a" /> {p}
+                        </li>
                       ))}
                     </ul>
                   )}
